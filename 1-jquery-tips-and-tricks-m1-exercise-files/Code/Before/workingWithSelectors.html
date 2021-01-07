@@ -2,30 +2,51 @@
 <html>
 <head>
     <title></title>
-    <script src="Scripts/jquery.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#emailContainer").attr("title", "Emails");
-            $("#emailContainer").click(function () {
-                alert("Clicked container");
-            });
+        window.jQuery || document.write("<script src='Scripts/jquery.js'><\/script>")
+    </script>
+    <script>
+        //Make variables for ease of maintinance and DOM caching which will make the overall expierence much faster.
+        var $emailContainer;
+        var $ordersContainer;
 
-            updateEmailPanels();
-            updateOrdersPanels();
+        $(document).ready(function () {
+            //Set the variable in document ready, it makes sure the element is ready before we declare the variable
+            $emailContainer = $("#emailContainer");
+            $ordersContainer = $("#ordersContainer");
+
+            ////Chain these together, chaining is easier to read and more efficent.
+            ////This doesn't require the DOM to find the email container multiple times.
+            //$emailContainer.attr("title", "Emails");
+            //$emailContainer.click(function () {
+            //    alert("Clicked container");
+            //});
+            $emailContainer
+                .attr("title", "Emails")
+                .click(function () {
+                    alert("Clicked container");
+                });
+
+            updatePanels($emailContainer);
+            updatePanels($ordersContainer);
 
         });
 
-        function updateEmailPanels() {
-            $("#emailContainer div.panel").each(function (i) {
+        ////Using the parameter is easier to read and again avoids the DOM finding the container element.
+        ////Also note that using the find() function to get child nodes is the most efficent way to search
+        function updatePanels($context) {
+            $context.find("div.panel").each(function (i) {
                 $(this).html("Panel " + i);
             });
         }
 
-        function updateOrdersPanels() {
-            $("#ordersContainer div.panel").each(function (i) {
-                $(this).html("Panel " + i);
-            });
-        }
+        ////Similar function with only initial selector differences. We wrapped this into one funtion, updatePanels()
+        //function updateOrdersPanels() {
+        //    $("#ordersContainer div.panel").each(function (i) {
+        //        $(this).html("Panel " + i);
+        //    });
+        //}
     </script>
 </head>
 <body>
