@@ -5,15 +5,32 @@
 </head>
 <body>
     <ul id="container"></ul>
-    <script src="Scripts/jquery.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+    <script>
+        window.jQuery || document.write("<script src='Scripts/jquery.js'><\/script>");
+    </script>
+    
     <script>
         var links = [
             { title: "jQuery", href: "http://jquery.com" },
             { title: "AngularJS", href: "http://angularjs.org" }
         ];
 
-
-        $("#container").append();
+        //Wrapping all like elements, such as all attr, into one object is easier to read, maintain, and improves performance.
+        var html = [];
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            var $li = $("<li><a/></li>")
+                .find("a")
+                .html(link.title)
+                .attr({
+                    "title": link.title,
+                    "href": link.href
+                })
+                .end(); //Note to give the whole <li> element you still need to end or you will pass the child <a> element.
+            html.push($li);
+        }
+        $("#container").append(html);
     </script>
 </body>
 </html>
