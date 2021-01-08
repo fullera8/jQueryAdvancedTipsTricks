@@ -8,7 +8,8 @@
             $("#showButton").click(function () {
                 var $names = $("#people li");
                 var $output = $("#output");
-                var $pubs = "";
+                //Filter will find the elements of the current selection, find will look for children of current selection.
+                var $pubs = $names.filter(".publisher");
 
                 if ($pubs.length) {
                     var html = "";
