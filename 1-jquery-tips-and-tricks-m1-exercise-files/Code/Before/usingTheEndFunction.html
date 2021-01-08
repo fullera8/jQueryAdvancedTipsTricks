@@ -2,14 +2,25 @@
 <html>
 <head>
     <title>Using the End Function</title>
-    <script src="Scripts/jquery.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+    <script>
+        window.jQuery || document.write("<script src='Scripts/jquery.js'><\/script>");
+    </script>
+    
     <script>
         $(document).ready(function () {
             var cust = {
                 name: "John Doe",
                 city: "Chandler"
             };
-            $('<div class="cust"><span /></div>').appendTo("#container");
+            //End() will pop all find() on the stack and return to the original element in the chain.
+            $('<div class="cust"><span /></div>')
+                .find("span")
+                    .attr('title', cust.name)
+                    .data(cust)
+                    .html(cust.name)
+                .end()//Return to .cust span
+                .appendTo("#container");
         });
     </script>
 </head>
