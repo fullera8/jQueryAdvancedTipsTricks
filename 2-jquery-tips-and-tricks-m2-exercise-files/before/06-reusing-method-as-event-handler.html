@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <link href="./ext/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -38,7 +38,7 @@
         Person.prototype.render = function ($output) {
             $("<code></code>", {
                 html: this.firstName + " " + this.lastName,
-                click: this.clicked
+                click: $.proxy(this.clicked, this) //You need to be explicit that "this" refers to the object for events. Otherwise it will point to the bound DOM object
             }).appendTo($output);
         };
         Person.prototype.clicked = function () {
