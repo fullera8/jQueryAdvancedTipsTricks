@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <link href="./ext/toastr/toastr.min.css" rel="stylesheet" />
@@ -24,7 +24,10 @@
 
 		$members.find("li a")
             .on("click", function (e) {
-                e.preventDefault();
+				//If you want to stop the event propogation, and prevent hyperlin default behavior
+				//Use both the .preventDefault() and .stopImmediatePropagation() methods, do not return false.
+				e.preventDefault();
+				e.stopImmediatePropagation();
                 toastr.success(this.tagName, "Click: 1st");
 		    })
             .on("click", function(e) {
