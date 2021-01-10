@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <link href="./ext/toastr/toastr.min.css" rel="stylesheet" />
@@ -17,7 +17,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="./ext/toastr/toastr.min.js"></script>
 	<script>
-	    $("#members").find("li a").live("click", function (e) {
+		//live was used to delegate the behavior to the parents. This is now integrated in .on() by default.
+		//live is removed because of duplication behavior.
+		//New .on() method is 3 paramter version that delegates behavior to parents specified in second parameter.
+		//$("#members").find("li a").live("click", function (e) {
+		$("#members").on("click", "li a", function (e) {
 			e.preventDefault();
             toastr.success($(this).text(), "Click");
 		});
