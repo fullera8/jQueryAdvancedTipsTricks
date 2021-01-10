@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <link href="./ext/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,15 +33,15 @@
     <script src="./ext/toastr/toastr.min.js"></script>
     <script>
         $("#name").on("keypress", function (e) {
-            toastr.success(e.which, "KeyPress");
+            toastr.success(e.which, "KeyPress"); //e.which is used to listen for key/char is used in the browser
         });
 
         $("#profileImageUrl").on("keyup", function () {
-            $("#profileImage").attr("src", $(this).val());
+            $("#profileImage").attr("src", $(this).val()); //search for image and display it
         });
 
         $("#profileImage").on("click", function (e) {
-            toastr.success(e.offsetX + " " + e.offsetY, "Offset");
+            toastr.success(e.offsetX + " " + e.offsetY, "Offset"); //When key is done with press, show it
         });
     </script>
 </body>
