@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿hn <!DOCTYPE html>
 <html>
 <head>
 <link href="./ext/toastr/toastr.min.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
             e.preventDefault();
             toastr.success($(this).text(), "Click");
         });
-        $("button").bind("click", function () {
+        $("button").on("click", function () {
             $("<li><a href='#'>Detail 6</a></li>").appendTo("#members");
         });
     </script>
