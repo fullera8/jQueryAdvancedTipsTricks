@@ -61,7 +61,7 @@ input.glowing:focus {
 	$("button[type='submit']").on("click", function(e) {
 	    e.preventDefault();
 	    toastr.success("Save Changes", "Saving and removing glowing...");
-	    $("input").off("focus.glow blur.glow"); //This way only the intended fields are changed.
+	    $("input").off(".glow"); //This way only the intended fields are changed.
 	});
 	</script>
 </body>
