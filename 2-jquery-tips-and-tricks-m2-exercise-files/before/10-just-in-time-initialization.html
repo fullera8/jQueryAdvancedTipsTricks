@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <link href="./ext/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -26,8 +26,11 @@
             });
         };
 
-        $(document).ready(function () {
-            $("input.date").datepicker();
+        //Use the page initialization components to your advantage. datepicker initializes with .hasDatepicker
+        //so if the element has been clicked on before it will have that element otherwise you can add it on an event
+        //that would otherwise trigger it.
+        $(document).on("focus", "input.date:not(.hasDatepicker)", function (e) {
+            $(this).datepicker();//adding the element that .hasDatePicker
         });
     </script>
 </head>
