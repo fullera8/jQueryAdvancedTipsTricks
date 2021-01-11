@@ -2,32 +2,35 @@
     var urlBase = "http://localhost:38129/api/customers",
         init = function () {
         $("#GetCustomers").click(function () {
-            $.getJSON(urlBase, function (custs) {
-                var custsHtml = ""
-                for (var i = 0; i < custs.length; i++) {
-                    custsHtml += "<li>" + custs[i].FirstName + " " + custs[i].LastName + "&nbsp;</li>";
-                }
-                $("#CustomersContainer").html(custsHtml);
-            });
+            getCustomers();
+            //Non-modular, should be generalized for the app
+            //$.getJSON(urlBase, function (custs) {
+            //    //var custsHtml = ""
+            //    //for (var i = 0; i < custs.length; i++) {
+            //    //    custsHtml += "<li>" + custs[i].FirstName + " " + custs[i].LastName + "&nbsp;</li>";
+            //    //}
+            //    //$("#CustomersContainer").html(custsHtml);
+            //});
         });
 
         $("#UpdateCustomer").click(function () {
             //Simulate customer data
-            var cust = {
-                ID: 2,
-                FirstName: "Michelle",
-                LastName: "Smith"
-            };
+            updateCustomer();
+            //var cust = {
+            //    ID: 2,
+            //    FirstName: "Michelle",
+            //    LastName: "Smith"
+            //};
 
-            $.ajax({
-                url: urlBase + '/' + cust.ID,
-                data: cust,
-                type: 'PUT',
-                success: function () {
-                    updateStatus("Updated Customer! Refreshing customer list.");
-                    getCustomers();
-                }
-            });
+            //$.ajax({
+            //    url: urlBase + '/' + cust.ID,
+            //    data: cust,
+            //    type: 'PUT',
+            //    success: function () {
+            //        updateStatus("Updated Customer! Refreshing customer list.");
+            //        getCustomers();
+            //    }
+            //});
         });
 
         $("#InsertCustomer").click(function () {
@@ -48,11 +51,49 @@
     },
 
     getCustomers = function () {
+        getCustomersData()
+            //similar logic to original but now async promise method that handles errors
+            .done(function (custs) {
+                var custsHtml = ""
+                for (var i = 0; i < custs.length; i++) {
+                    custsHtml += "<li>" + custs[i].FirstName + " " + custs[i].LastName + "&nbsp;</li>";
+                }
+                $("#CustomersContainer").html(custsHtml);
+            })
+            .fail(function () {
+                alert("Unable to get customers");
+            });
+    },
 
+    getCustomersData = function () {
+        //Don't do anything with the data, immediatly return the promise, then decide what to do with it in 
+        // getCustomers(). Now function just gets data, doesn't know what to do with it and can be reused
+        return $.getJSON(urlBase)
     },
 
     updateCustomer = function () {
+        var cust = {
+            ID: 2,
+            FirstName: "Michelle",
+            LastName: "Smith"
+        };
+        updateCustomerData(cust)
+            .done(function () {
+                updateStatus("Updated Customers! Refreshing Customer List.");
+                getCustomers(); //notice the reuse, modular style.
+            })
+            .fail(function (jqHXR, textStatus, err) {//jqHXR = jQuery HTTP XML Request Object, textStatus = jqHXR human readable description, err = error object 
+                alert(textStatus);
+            });
+    },
 
+    //promise update
+    updateCustomerData = function (cust) {
+        return $.ajax({
+            url: urlBase + '/' + cust.ID,
+            data: cust,
+            type: 'PUT'
+        });
     },
 
     insertCustomer = function () {
