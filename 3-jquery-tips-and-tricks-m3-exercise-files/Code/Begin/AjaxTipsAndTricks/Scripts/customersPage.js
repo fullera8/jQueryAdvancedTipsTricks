@@ -51,7 +51,7 @@
     },
 
     getCustomers = function () {
-        getCustomersData()
+        dataService.getCustomers() //Consolidate to API dataservice call
             //similar logic to original but now async promise method that handles errors
             .done(function (custs) {
                 var custsHtml = ""
@@ -65,11 +65,7 @@
             });
     },
 
-    getCustomersData = function () {
-        //Don't do anything with the data, immediatly return the promise, then decide what to do with it in 
-        // getCustomers(). Now function just gets data, doesn't know what to do with it and can be reused
-        return $.getJSON(urlBase)
-    },
+    
 
     updateCustomer = function () {
         var cust = {
@@ -77,7 +73,7 @@
             FirstName: "Michelle",
             LastName: "Smith"
         };
-        updateCustomerData(cust)
+        dataService.updateCustomer(cust)//Consolidate to API dataservice call
             .done(function () {
                 updateStatus("Updated Customers! Refreshing Customer List.");
                 getCustomers(); //notice the reuse, modular style.
@@ -87,14 +83,7 @@
             });
     },
 
-    //promise update
-    updateCustomerData = function (cust) {
-        return $.ajax({
-            url: urlBase + '/' + cust.ID,
-            data: cust,
-            type: 'PUT'
-        });
-    },
+    
 
     insertCustomer = function () {
         //Fake customer data
