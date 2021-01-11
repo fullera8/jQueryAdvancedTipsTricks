@@ -1,6 +1,6 @@
 ﻿var customersPage = function () {
     var urlBase = "http://localhost:38129/api/customers",
-        init = function () {
+    init = function () {
         $("#GetCustomers").click(function () {
             getCustomers();
             //Non-modular, should be generalized for the app

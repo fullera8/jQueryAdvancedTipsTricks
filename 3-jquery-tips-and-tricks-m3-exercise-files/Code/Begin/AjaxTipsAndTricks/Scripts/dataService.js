@@ -24,6 +24,12 @@
         return $.getJSON(urlBase + '/' + id);
     },
 
+    //Returns customer and order information
+    getCustomerAndOrders = function (custID) {
+        var promises = [getCustomer(custID), getOrders(custID)];
+        return $.when.apply($, promises); //apply works with an array of promises, call() can be used if not array in same way.
+    },
+
     getCustomerJSONP = function (id) {
         return $.getJSON(urlBase + '/' + id + '?callback=?');
     },
@@ -51,6 +57,7 @@
         authenticate: authenticate,
         getCustomers: getCustomers, //wires up api call
         updateCustomer: updateCustomer, //wires up api call
+        getCustomerAndOrders: getCustomerAndOrders,
         getCustomer: getCustomer,
         getCustomerJSONP: getCustomerJSONP,
         insertCustomer: insertCustomer,
