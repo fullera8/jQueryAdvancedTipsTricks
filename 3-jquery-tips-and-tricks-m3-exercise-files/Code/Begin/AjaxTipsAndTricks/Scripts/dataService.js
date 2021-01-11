@@ -2,7 +2,13 @@
     var urlBase = 'http://localhost:38129/api/customers',
 
     authenticate = function (authToken) {
-
+        return $.ajax({
+            url: "/api/authentication",
+            type: "POST",
+            beforeSend: function (request) {
+                request.setRequestHeader("AuthToken", authToken);
+            }
+        });
     },
 
     getCustomers = function () {

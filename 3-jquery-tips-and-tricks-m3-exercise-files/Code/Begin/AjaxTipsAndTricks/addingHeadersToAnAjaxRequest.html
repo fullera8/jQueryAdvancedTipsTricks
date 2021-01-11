@@ -14,7 +14,13 @@
     <script>
         $("#login").click(function () {
             var authToken = "123456ABCDEF";
-
+            dataService.authenticate(authToken)
+                .success(function (data, statusText, jqXHR) {
+                    $("#authToken").html(jqXHR.getResponseHeader("AuthToken"));
+                })
+                .fail(function (jqXHR, statusText, err) {
+                    alert(["Error Authenticating:", err].join(' '));
+                });
         });
     </script>
 </body>
