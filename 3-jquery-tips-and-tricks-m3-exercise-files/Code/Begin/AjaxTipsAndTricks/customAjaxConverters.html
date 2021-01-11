@@ -5,13 +5,26 @@
     <script src="Scripts/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            //When using AJAX conversion, data may get converted into a data.d wrapper which is hard to work with. 
+            //This will make the data more useable and not requrire data.d array references in multiple places.
+            $.ajaxSetup({
+                converters: {
+                    "json jsond": function (data) { //jsond is made up here and creates a fake style to unwrap the data
+                        //This case is simple but you can also do your own data mappings here to make the data references more understandable
+                        return data && data.hasOwnProperty("d") ? data.d : data;
+                    }
+                }
+            });
+
+            //Use the converted data jsond
             $('#makeCall').click(function () {
                 $.ajax({
                     url: "/api/custom",
+                    dataType: "jsond",
                     success: function (data) {
                         var custsHtml = "";
-                        for (var i = 0; i < data.d.length; i++) {
-                            var cust = data.d[i];
+                        for (var i = 0; i < data.length; i++) { //data.d no longer required
+                            var cust = data[i];//data.d no longer required
                             custsHtml += cust.FirstName + " " + cust.LastName + "<br />";
                         }
                         $("#output").html(custsHtml);
