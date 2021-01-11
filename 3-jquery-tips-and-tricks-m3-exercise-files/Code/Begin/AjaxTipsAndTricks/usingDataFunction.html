@@ -43,6 +43,8 @@
                 for (var i = 0; i < data.length; i++) {
                     var cust = data[i];
                     var $tr = $("<tr>" + td(cust.ID) + td(cust.FirstName) + td(cust.LastName) + "</tr>");  
+                    $tr.data("orders", cust.Orders); //Create the data object key "orders" that points to cust.Orders on the DOM
+                    $tr.click(showOrders); //used for readability but uses the $tr object
                     $trs.push($tr);
                 }
                 $("#customersTable tbody").append($trs);
@@ -50,6 +52,21 @@
             .fail(function (jqXHR, statusText, err) {
                 alert("Error getting customers: " + err);
             });
+
+        //Updates the orders table with the pre-populated "orders" DOM object
+        function showOrders() {
+            var $tBody = $("#ordersTable tbody");
+            $tBody.html('');
+            var orders = $(this).data("orders"); //need to point to the DOM object 
+
+            var $trs = [];
+            for (var i = 0; i < orders.length; i++) {
+                var order = orders[i];
+                var $tr = $(["<tr>", td(order.ID), td(order.ProductTitle), td(order.Total), "</tr>"].join(''));
+                $trs.push($tr);
+            }
+            $tBody.append($trs);
+        }
 
         function td(data) {
             return "<td>" + data + "</td>";
