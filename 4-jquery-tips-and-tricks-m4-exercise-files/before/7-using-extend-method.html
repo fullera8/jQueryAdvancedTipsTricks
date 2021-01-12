@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,7 +12,9 @@
     <script src="./ext/jquery/jquery.min.js"></script>
     <script>
     	$.fn.valentines = function (options) {
-    		var settings = $.extend($.fn.valentines.defaults, options);
+            //Allows extending function behavior, for example default behavior can be overwritten.
+            //3 params, 1. return object, 2. what to extend (such as default behavior), 3.New behavior
+            var settings = $.extend({}, $.fn.valentines.defaults, options); 
 
 			return this.css(settings);
     	};
