@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <link href="./ext/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -21,6 +21,8 @@
             { fn: "Joe",  ln: "Doe", bday: "07/05/2009" }
         ];
 
+        //$.map() maps elements to keys, this will update to an array of objects with the new data fields specified.
+        //ex internal object [{"firstName":"John","lastName":"Doe","age":43}]
         people = $.map(people, function (person) {
             return {
                 firstName: person.fn,
@@ -33,6 +35,7 @@
 
         // ..........
 
+        //$.map() can also loop over a collection of element types and create a list of objects based on the attributes.
         var output = $("input").map(function () {
             return $(this).val();
         }).get().join(" ");
