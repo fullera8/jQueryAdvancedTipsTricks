@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,7 +22,7 @@
             map: function (items, callback) {
                 var result = [];
 
-                if (typeof items === "array") {
+                if ($.type(items) === "array") {//JS typeof has limited object typing, JQ $.type() has more types to work with.
                     for (i = 0; i < items.length; i++) {
                         result.push(callback(items[i], i));
                     }
