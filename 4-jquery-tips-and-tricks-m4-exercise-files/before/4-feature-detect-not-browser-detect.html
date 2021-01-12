@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <link href="./ext/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -39,18 +39,31 @@
             </div>
         </fieldset>
     </form>
-    <script src="./ext/jquery/jquery-1.8.3.min.js"></script>
-    <!--<script src="./ext/jquery/jquery.min.js"></script>-->
+    <!--<script src="./ext/jquery/jquery-1.8.3.min.js"></script>-->
+    <script src="./ext/jquery/jquery.min.js"></script>
     <!--<script src="./ext/jquery/jquery-migrate-1.2.1.js"></script>-->
-    <!--<script src="./ext/modernizr/modernizr.min.js"></script>-->
+    <script src="./ext/modernizr/modernizr.min.js"></script>
     <script>
-        if ($.browser.msie && $.browser.version <= 10) {
-            $("link[rel='stylesheet']:last")
-                .after("<link href='./ext/bootstrap-datepicker/css/datepicker.css' rel='stylesheet' />");
-            $.getScript("./ext/bootstrap-datepicker/js/bootstrap-datepicker.js", function () {
-                $("input[type=date]").datepicker();
-            });
-    	}
+     //   if (!Modernizr.inputtypes.date) {//Do not check the browser directly, use modernizr and check for elements you need.
+     //       $("link[rel='stylesheet']:last")
+     //           .after("<link href='./ext/bootstrap-datepicker/css/datepicker.css' rel='stylesheet' />");
+     //       $.getScript("./ext/bootstrap-datepicker/js/bootstrap-datepicker.js", function () {
+     //           $("input[type=date]").datepicker();
+     //       });
+    	//}
+        //This check is so common there is a modernizr.load method that takes an object of tests and output
+        Modernizr.load({
+            test: Modernizr.inputtypes.date,
+            nope: [ //if IE
+                "./ext/bootstrap-datepicker/css/datepicker.css",
+                "./ext/bootstrap-datepicker/js/bootstrap-datepicker.js"
+            ],
+            complete: function () {//Do no matter what
+                if (!Modernizr.inputtypes.date) {//additional condition only for IE
+                    $("input[type=date]").datepicker();
+                }
+            }
+        });
     </script>
 </body>
 </html>
